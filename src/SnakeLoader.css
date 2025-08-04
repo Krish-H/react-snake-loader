@@ -1,0 +1,111 @@
+.snake-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+  font-family: monospace;
+}
+
+
+
+.board {
+  position: relative;
+  width: 400px;
+  height: 200px;
+  display: grid;
+  grid-template-columns: repeat(20, 20px);
+  grid-template-rows: repeat(10, 20px);
+  background-color: #000;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cell {
+  width: 20px;
+  height: 20px;
+}
+
+.snake {
+  background-color: white;
+  border: 1px solid #999;
+  transition: background-color 0.2s;
+}
+
+.snake-head {
+  background-color: white;
+  border-radius: 30% 30% 10% 10%;
+  position: relative;
+}
+
+.snake-head::before,
+.snake-head::after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: black;
+  top: 4px;
+  border-radius: 50%;
+}
+
+.snake-head::before {
+  left: 5px;
+}
+
+.snake-head::after {
+  right: 5px;
+}
+
+.letter {
+  position: absolute;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  pointer-events: none;
+  transition: all 0.4s ease-out;
+}
+
+.animated-loading-text {
+  color: rgb(0, 0, 0);
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 15px;
+  letter-spacing: 3px;
+  opacity: 0;
+  animation: slideFade 2.5s ease-in-out infinite;
+}
+
+.board-ani{
+   
+  animation: slideBord 2.5s ease-in-out infinite;
+
+}
+
+@keyframes slideBord {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideFade {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
