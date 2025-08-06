@@ -1,12 +1,76 @@
-# React + Vite
+# React Snake Loader
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fun, animated snake loader component for React applications. The snake "eats" the letters of the loading text, providing a playful and engaging loading experience.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Animated snake game as a loading spinner
+- Responsive design (works on desktop and mobile)
+- Customizable background image and text color
+- Keyboard and swipe controls for snake movement
+- Easy integration into any React project
 
-## Expanding the ESLint configuration
+## Screenshot
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+![Before Hover](./src/assets/s1.png)
+![After Hover](./src/assets/s2.png)
+
+## Installation
+
+```sh
+npm install react-snake-loader
+```
+
+## Usage
+
+Import and use the `SnakeLoader` component in your React app:
+
+```jsx
+import SnakeLoader from "react-snake-loader";
+
+function App() {
+  return (
+    <div>
+      <SnakeLoader
+        backgroundImage="your-image-url.jpg"
+        textColor="#ff6600"
+      />
+    </div>
+  );
+}
+
+export default App;
+```
+
+## Props
+
+| Prop            | Type     | Description                                 |
+|-----------------|----------|---------------------------------------------|
+| `backgroundImage` | string   | URL for the blurred background image        |
+| `textColor`       | string   | Color for the loading text (desktop only)   |
+
+## Customization
+
+- Change the loading text by editing the `loadingText` variable in [`SnakeLoader.jsx`](src/SnakeLoader.jsx).
+- Adjust grid size, board dimensions, and animation speed in [`SnakeLoader.jsx`](src/SnakeLoader.jsx) and [`SnakeLoader.css`](src/SnakeLoader.css).
+
+## Development
+
+```sh
+npm install
+npm run dev
+```
+
+## Build
+
+```sh
+npm run build
+```
+
+## License
+
+MIT
+
+---
+
+Made by [Hari Krishnan](https://github.com/Krish-H)

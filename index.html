@@ -2,12 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>Loading</title>
+    <script>
+      // Animate "Loading" with dots in title bar
+      const baseTitle = "Loading";
+      let dotCount = 0;
+      const maxDots = 3;
+      setInterval(() => {
+        dotCount = (dotCount + 1) % (maxDots + 1);
+        document.title = baseTitle + ".".repeat(dotCount);
+      }, 500); // update every 500ms
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    
   </body>
 </html>

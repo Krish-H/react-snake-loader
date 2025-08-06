@@ -4,17 +4,16 @@ import "./SnakeLoader.css";
 const GRID_SIZE = 20;
 const BOARD_WIDTH = 20;
 const BOARD_HEIGHT = 10;
-
 const loadingText = "Loading...".split("");
 
-const SnakeLoader = () => {
+const SnakeLoader = ({ backgroundImage , textColor }) => {
   const [snake, setSnake] = useState([{ x: 9, y: 5 }]);
   const [direction, setDirection] = useState("RIGHT");
   const [letters, setLetters] = useState([]);
   const [scatter, setScatter] = useState(false);
   const [grow, setGrow] = useState(false);
   const [started, setStarted] = useState(false);
-  const [hidePopup, setHidePopup] = useState(false);
+ const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
   const intervalRef = useRef(null);
 
   useEffect(() => {
@@ -48,7 +47,6 @@ const SnakeLoader = () => {
           break;
       }
     };
-
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
@@ -154,7 +152,6 @@ const SnakeLoader = () => {
 
     setScatter(true);
     setStarted(true);
-    setHidePopup(true);
 
     setLetters(
       loadingText.map((char) => ({
@@ -178,7 +175,6 @@ const SnakeLoader = () => {
         setSnake([{ x: 9, y: 5 }]);
         setDirection("RIGHT");
         setGrow(false);
-
         setLetters(
           loadingText.map((char) => ({
             char,
@@ -192,50 +188,70 @@ const SnakeLoader = () => {
     }
   }, [allEaten]);
 
+ useEffect(() => {
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 600);
+  };
+
+  window.addEventListener("resize", handleResize);
+
+  handleResize();
+
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
+
   return (
-    <>
-      <div className="blur-bg"></div>
+    <div className="snake-container">
+      {backgroundImage && (
+        <div
+          className="snake-blur-bg"
+          style={{ backgroundImage: `url(${backgroundImage})` }}
+        />
+      )}
 
-      <div className="snake-container">
-        <div style={{ position: "relative" }}>
-          <div className="board board-ani" onMouseEnter={handleHover}>
-            {[...Array(BOARD_HEIGHT)].map((_, row) =>
-              [...Array(BOARD_WIDTH)].map((_, col) => {
-                const isHead = snake[0].x === col && snake[0].y === row;
-                const isSnake = snake.some((s) => s.x === col && s.y === row);
-                return (
-                  <div
-                    key={`${row}-${col}`}
-                    className={`cell ${isSnake ? "snake" : ""} ${
-                      isHead ? "snake-head" : ""
-                    }`}
-                  />
-                );
-              })
-            )}
-
-            {letters.map(
-              (letter, i) =>
-                !letter.eaten && (
-                  <div
-                    key={i}
-                    className="letter "
-                    style={{
-                      left: `${letter.x * GRID_SIZE}px`,
-                      top: `${letter.y * GRID_SIZE}px`,
-                    }}
-                  >
-                    {letter.char}
-                    
-                  </div>
-                )
-            )}
-          </div>
+      <div style={{ position: "relative" }}>
+        <div className="board board-ani" onMouseEnter={handleHover}>
+          {[...Array(BOARD_HEIGHT)].map((_, row) =>
+            [...Array(BOARD_WIDTH)].map((_, col) => {
+              const isHead = snake[0].x === col && snake[0].y === row;
+              const isSnake = snake.some((s) => s.x === col && s.y === row);
+              return (
+                <div
+                  key={`${row}-${col}`}
+                  className={`cell ${isSnake ? "snake" : ""} ${
+                    isHead ? "snake-head" : ""
+                  }`}
+                />
+              );
+            })
+          )}
+          {letters.map(
+            (letter, i) =>
+              !letter.eaten && (
+                <div
+                  key={i}
+                  className={`letter ${!started && "fade-text"}`}
+                  style={{
+                    left: `${letter.x * GRID_SIZE}px`,
+                    top: `${letter.y * GRID_SIZE}px`,
+                  }}
+                >
+                  {letter.char}
+                </div>
+              )
+          )}
         </div>
-
-        <div className="animated-loading-text">{loadingText.join("")}</div>
       </div>
-    </>
+      {started && (
+        <div
+        
+          className="animated-loading-text"
+    style={{
+      color: !isMobile && textColor ? textColor : undefined,
+    }}
+        >{loadingText.join("")}</div>
+      )}
+    </div>
   );
 };
 

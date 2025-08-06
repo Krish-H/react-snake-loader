@@ -1,12 +1,16 @@
-import SnakeLoader from './SnakeLoader';
+import SnakeLoader from "./SnakeLoader";
+
 
 function App() {
   return (
-    <SnakeLoader
-      text="Loading..."
-      duration={15000}
-      onComplete={() => console.log('Done')}
-    />
+   
+ <div>
+
+
+
+      <SnakeLoader />
+    </div>
+    
   );
 }
 

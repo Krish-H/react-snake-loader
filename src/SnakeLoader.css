@@ -1,11 +1,27 @@
+
 .snake-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 40px;
   font-family: monospace;
+z-index: 100;
+  
 }
-
+.snake-blur-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+    width:100vw; 
+  height: 100vh; 
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px);
+  transform: scale(1.1); 
+ 
+  z-index: -1;
+  pointer-events: none;
+}
 
 
 .board {
@@ -76,6 +92,11 @@
   animation: slideFade 2.5s ease-in-out infinite;
 }
 
+.fade-text {
+  opacity: 0;
+  animation: slideFade 2.5s ease-in-out infinite;
+}
+
 .board-ani{
    
   animation: slideBord 2.5s ease-in-out infinite;
@@ -107,5 +128,32 @@
     opacity: 0;
     transform: translateY(10px);
   }
+}
+
+
+@media (max-width: 600px) {
+    body {
+    background-color: rgb(1, 1, 1);
+  }
+
+    .snake-blur-bg {
+    display: none;
+  }
+   
+
+    .snake-container {
+ 
+       padding: 80px;
+          justify-content: center;
+          align-items: center;
+          width: 100vw;
+          height: 100vh;
+          
+}
+
+.animated-loading-text {
+  color: rgb(255, 255, 255);
+
+}
 }
 
